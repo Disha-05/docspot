@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../services/firebase_auth_methods.dart';
 import '../utils/routes.dart';
+import '../utils/showSnackBar.dart';
 import '../widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,10 +26,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void loginUser() async {
-    await FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
-        email: emailController.text,
-        password: passwordController.text,
-        context: context);
+    if (emailController.value.text.isNotEmpty ||
+        passwordController.value.text.isNotEmpty) {
+      FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+          email: emailController.text,
+          password: passwordController.text,
+          context: context);
+      Navigator.pushNamed(context, MyRoutes.dashboardRoute);
+    } else {
+      showSnackBar(context, "Fill all the details");
+    }
   }
 
   @override

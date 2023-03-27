@@ -1,3 +1,4 @@
+import 'package:docspot/pages/dashboard.dart';
 import 'package:docspot/pages/form_page.dart';
 import 'package:docspot/pages/login_page.dart';
 import 'package:docspot/pages/main_page.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.signupRoute: (context) => const SignUpPage(),
         MyRoutes.mainRoute: (context) => const MainPage(),
         MyRoutes.formRoute: (context) => const FormPage(),
+        MyRoutes.dashboardRoute: (context) => DoctorSearchPage(),
       },
     );
   }

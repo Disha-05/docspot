@@ -3,4 +3,5 @@ class MyRoutes {
   static String signupRoute = "/signup";
   static String mainRoute = "/mainpage";
   static String formRoute = "/formpage";
+  static String dashboardRoute = "/dashboard";
 }
