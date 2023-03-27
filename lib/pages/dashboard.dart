@@ -107,6 +107,10 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
     });
   }
 
+  void _onTileClicked(Doctor doctor) {
+    print("Hello");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,16 +127,19 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
         itemCount: _searchResults.length,
         itemBuilder: (BuildContext context, int index) {
           Doctor doctor = _searchResults[index];
-          return ListTile(
-            title: Text(doctor.name),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(doctor.specialty),
-                Text('${doctor.distance} miles away'),
-                Text('At ${doctor.hospitalName}'),
-                Text('Availablity: ${doctor.availability}'),
-              ],
+          return InkWell(
+            onTap: () => _onTileClicked(doctor),
+            child: ListTile(
+              title: Text(doctor.name),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(doctor.specialty),
+                  Text('${doctor.distance} miles away'),
+                  Text('At ${doctor.hospitalName}'),
+                  Text('Availablity: ${doctor.availability}'),
+                ],
+              ),
             ),
           );
         },

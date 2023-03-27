@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/routes.dart';
+
 class FormPage extends StatefulWidget {
   const FormPage({Key? key}) : super(key: key);
 
@@ -217,6 +219,7 @@ class _SignUpFormState extends State<SignUpForm> {
         print("Terms checked: " + _termsChecked.toString());
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Form Submitted')));
+        Navigator.pushNamed(context, MyRoutes.dashboardRoute);
       }
     }
 
