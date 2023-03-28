@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import '../utils/routes.dart';
+
 class Doctor {
   final String hospitalName;
   final String name;
@@ -30,32 +32,32 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
     Doctor(
         hospitalName: 'Hospital A',
         name: 'Dr. John Doe',
-        specialty: 'Cardiology',
-        availability: 'yes',
+        specialty: 'Cardiologist',
+        availability: 'Yes',
         distance: 5.3,
         longitude: -73.9857,
         latitude: 40.7484),
     Doctor(
         hospitalName: 'Hospital A',
         name: 'Dr. John Doe',
-        specialty: 'Cardiology',
-        availability: 'yes',
+        specialty: 'Cardiologist',
+        availability: 'No',
         distance: 5.3,
         longitude: -73.9857,
         latitude: 40.7484),
     Doctor(
         hospitalName: 'Hospital A',
         name: 'Dr. Jane Smith',
-        specialty: 'Pediatrics',
-        availability: 'yes',
+        specialty: 'Pediatrician',
+        availability: 'Yes',
         distance: 7.2,
         longitude: -73.9857,
         latitude: 40.7484),
     Doctor(
       hospitalName: 'Hospital B',
       name: 'Dr. Tom Johnson',
-      specialty: 'Orthopedics',
-      availability: 'yes',
+      specialty: 'Orthopedist',
+      availability: 'Yes',
       distance: 3.8,
       longitude: -73.9857,
       latitude: 40.7484,
@@ -63,8 +65,8 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
     Doctor(
       hospitalName: 'Hospital C',
       name: 'Dr. Sarah Lee',
-      specialty: 'Dermatology',
-      availability: 'yes',
+      specialty: 'Dermatologist',
+      availability: 'No',
       distance: 12.4,
       longitude: -73.9857,
       latitude: 40.7484,
@@ -72,8 +74,8 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
     Doctor(
       hospitalName: 'Hospital A',
       name: 'Dr. Hannah Roger',
-      specialty: 'Dermatology',
-      availability: 'yes',
+      specialty: 'Dermatologist',
+      availability: 'Yes',
       distance: 11,
       longitude: -73.9857,
       latitude: 40.7484,
@@ -107,8 +109,10 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
     });
   }
 
-  void _onTileClicked(Doctor doctor) {
-    print("Hello");
+  void _onTileClicked(Doctor doctor) async {
+    await ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Google map location will be shared")));
+    Navigator.pushNamed(context, MyRoutes.notificationRoute);
   }
 
   @override
@@ -129,16 +133,79 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
           Doctor doctor = _searchResults[index];
           return InkWell(
             onTap: () => _onTileClicked(doctor),
-            child: ListTile(
-              title: Text(doctor.name),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(doctor.specialty),
-                  Text('${doctor.distance} miles away'),
-                  Text('At ${doctor.hospitalName}'),
-                  Text('Availablity: ${doctor.availability}'),
-                ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListTile(
+                  title: Text(
+                    doctor.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 8.0),
+                      Text(
+                        doctor.specialty,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 16.0,
+                              color: Colors.grey[600],
+                            ),
+                            SizedBox(width: 4.0),
+                            Text(
+                              '${doctor.distance} miles away',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        'At ${doctor.hospitalName}',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        'Availability: ${doctor.availability}',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: doctor.availability == 'Yes'
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           );
