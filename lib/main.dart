@@ -2,6 +2,7 @@ import 'package:docspot/pages/dashboard.dart';
 import 'package:docspot/pages/form_page.dart';
 import 'package:docspot/pages/login_page.dart';
 import 'package:docspot/pages/main_page.dart';
+import 'package:docspot/pages/notification.dart';
 import 'package:docspot/pages/signup_page.dart';
 import 'package:docspot/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.mainRoute: (context) => const MainPage(),
         MyRoutes.formRoute: (context) => const FormPage(),
         MyRoutes.dashboardRoute: (context) => DoctorSearchPage(),
+        MyRoutes.notificationRoute: (context) => NotificationPage(),
       },
     );
   }
