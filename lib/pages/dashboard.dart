@@ -28,6 +28,22 @@ class DoctorSearchPage extends StatefulWidget {
 }
 
 class _DoctorSearchPageState extends State<DoctorSearchPage> {
+  final List<BottomNavigationBarItem> bottomNavBarItems = [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.local_hospital),
+      label: 'Ambulance Booking',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.settings),
+      label: 'Settings',
+    ),
+  ];
+  int _currentIndex = 0;
+
   final List<Doctor> _doctors = [
     Doctor(
         hospitalName: 'Hospital A',
@@ -210,6 +226,23 @@ class _DoctorSearchPageState extends State<DoctorSearchPage> {
             ),
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+
+          if (index == 0) {
+            Navigator.pushNamed(context, MyRoutes.dashboardRoute);
+          } else if (index == 1) {
+            Navigator.pushNamed(context, MyRoutes.dashboardRoute);
+          } else if (index == 2) {
+            Navigator.pushNamed(context, MyRoutes.dashboardRoute);
+          }
+        },
+        items: bottomNavBarItems,
       ),
     );
   }
